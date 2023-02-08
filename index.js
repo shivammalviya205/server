@@ -68,12 +68,12 @@ const storage = multer.diskStorage({
 app.use("/auth",authRoutes);
 
 
-
 //main server requests
 //this can be avoided
 app.get('/',(req,res)=>{
     res.send("Hello namaste dev")
 })
+
 
 
 
