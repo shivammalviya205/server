@@ -12,6 +12,10 @@ import { fileURLToPath } from "url";
 import {connectDb} from './db.js';
 import {register} from './controllers/auth.js';
 import authRoutes from './routes/auth.js';
+import userRoutes from  './routes/user.js';
+import postRoutes from './routes/posts.js';
+import { verifyToken } from './middleware/auth.js';
+import {createPost} from './controllers/posts.js';
 
 /* CONFIGURATIONS */
 const __filename = fileURLToPath(import.meta.url);
@@ -59,15 +63,15 @@ const storage = multer.diskStorage({
 */
  app.post("/auth/register",upload,register);
 // upload.single("picture")
-
+app.post("/posts/create",verifyToken,upload,createPost);
 
 
 
 
 /* Routes */
 app.use("/auth",authRoutes);
-
-
+app.use('/user',userRoutes);
+app.use('/posts',postRoutes);
 //main server requests
 //this can be avoided
 app.get('/',(req,res)=>{

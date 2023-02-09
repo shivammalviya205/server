@@ -23,16 +23,16 @@ const UserSchema= new mongoose.Schema({
    type:String,
    default:"",
   },
-  followers: [
-{ type: ObjectId, ref: "users" }
-],
+  followers: 
+    { type: Array, default: [] }
+,
 
-  following: [
-    { type: ObjectId, ref: "users" }
-],
-savedpost: [
-    { type: ObjectId, ref: "posts" }
-],
+  following: 
+    { type: Array, default: [] }
+,
+savedpost: 
+    { type: Array, default: [] }
+,
 
 viewedProfile:{type:Number,default:10},
 
