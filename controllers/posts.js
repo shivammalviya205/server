@@ -118,23 +118,14 @@ export const deletecomment=async(req,res)=>{
     try{
     const { id } = req.params;
     const{requserId,reqtextcomment}=req.body;
-   
-    // const user= await User.findById(userId);
-    
     const post= await Post.findById(id);
-   
-    // post.comments.push({
-    //     userId,
-    //     userName:user.userName,
-    //     userPicturePath:user.picturePath,
-    //     textcomment
-    // })
-     //post.comments=post.comments.filter(({userId})=> userId!==requserId)
-      const filteredcomments = post.comments.filter(comment => 
-        comment.userId !== requserId && comment.textcomment !== reqtextcomment
+ 
+    
+       post.comments = post.comments.filter(comment => 
+        comment.userId !== requserId || comment.textcomment !== reqtextcomment
       );
-     console.log(filteredcomments)
-    //user.followers = user.followers.filter((id) => id !== friendId);
+      // or and and ulta chal raha h yaha 
+     
     await post.save();
     
       //yaha changes karna pad skta h image ja rahi h ya nhi dekhna padega
@@ -143,11 +134,12 @@ export const deletecomment=async(req,res)=>{
     //   );  
 
     const updatedPost = await Post.findById(id);
-      res.status(200).json(filteredcomments);
+      res.status(200).json(updatedPost.comments);
     }catch(err)
     {
         res.status(404).json({ message: err.message }); 
     }
 };
+
 
 
