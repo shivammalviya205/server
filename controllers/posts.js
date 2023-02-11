@@ -4,8 +4,9 @@ import User from "../models/User.js";
 
 //data ka content type multipart-form-data hona chahiye
 export const createPost=async(req,res)=>{
-    try{
+    try{ 
      const{userId,description}=req.body;
+     
      const image=req.file.filename;
       const user=await User.findById(userId);
 
@@ -32,9 +33,10 @@ export const createPost=async(req,res)=>{
 
 /* READ */
 export const getFeedPosts = async (req, res) => {
-    try {
-      const post = await Post.find();
-      res.status(200).json(post);
+ 
+    try { 
+      const posts = await Post.find();
+      res.status(200).json(posts);
     } catch (err) {
       res.status(404).json({ message: err.message });
     }
