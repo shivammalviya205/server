@@ -82,33 +82,34 @@ export const addRemoveFollower=async(req,res)=>{
        const user=await User.findById(id);
        const friend = await User.findById(friendId);
 
-       if (user.followers.includes(friendId)) {
-        user.followers = user.followers.filter((id) => id !== friendId);
-        friend.following = friend.following.filter((id) => id !== id);
+       if (user.following.includes(friendId)) {
+        user.following = user.following.filter((id) => id !== friendId);
+        friend.followers = friend.followers.filter((id) => id !== id);
       } else {
-        user.followers.push(friendId);
-        friend.following.push(id);
+        user.following.push(friendId);
+        friend.followers.push(id);
       }
       await user.save();
       await friend.save();
       
       const followers = await Promise.all(
-        user.followers.map((id) => User.findById(id))
+        friend.followers.map((id) => User.findById(id))
       ); 
       const following = await Promise.all(
-        friend.following.map((id) => User.findById(id))
+        user.following.map((id) => User.findById(id))
       ); 
 
       
-      const formattedfollowing= await followers.map(({ _id,userName,email,picturePath})=>{
+      const formattedfollowing= await following.map(({ _id,userName,email,picturePath})=>{
         return {_id,userName,email,picturePath};
     });
-    const formattedfollowers= await following.map(({ _id,userName,email,picturePath})=>{
+    const formattedfollowers= await followers.map(({ _id,userName,email,picturePath})=>{
         return {_id,userName,email,picturePath};
     }); 
 
-    res.status(200).json({formattedfollowers,formattedfollowing});
-
+    // res.status(200).json({formattedfollowers,formattedfollowing});
+    res.status(200).json({data:formattedfollowing});
+     console.log(formattedfollowing)
     }catch(err)
     {
         res.status(404).json({ message: err.message });

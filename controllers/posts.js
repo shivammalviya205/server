@@ -86,7 +86,8 @@ export const likePost = async (req, res) => {
     try{
     const { id } = req.params;
     const{userId,textcomment}=req.body;
-   
+    console.log(userId);
+    console.log(textcomment);
     const user= await User.findById(userId);
     
     const post= await Post.findById(id);
@@ -99,14 +100,14 @@ export const likePost = async (req, res) => {
     })
     
     await post.save();
-    
+      console.log(post.comments[0].userName)
       //yaha changes karna pad skta h image ja rahi h ya nhi dekhna padega
     //   const postcomments = await Promise.all(
     //     post.comments.map((id) => User.findById(id))
     //   );  
 
     const updatedPost = await Post.findById(id);
-      res.status(200).json(updatedPost.comments);
+      res.status(200).json(updatedPost);
     }catch(err)
     {
         res.status(404).json({ message: err.message }); 
@@ -136,7 +137,7 @@ export const deletecomment=async(req,res)=>{
     //   );  
 
     const updatedPost = await Post.findById(id);
-      res.status(200).json(updatedPost.comments);
+      res.status(200).json(updatedPost);
     }catch(err)
     {
         res.status(404).json({ message: err.message }); 
