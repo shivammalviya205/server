@@ -22,8 +22,8 @@ export const createPost=async(req,res)=>{
       })
       await newPost.save();
 
-      const post=await Post.find();
-      res.status(201).json({post});
+      const posts = await Post.find();
+      res.status(200).json(posts);
 
 
     }catch(err){
@@ -37,6 +37,7 @@ export const getFeedPosts = async (req, res) => {
     try { 
       const posts = await Post.find();
       res.status(200).json(posts);
+      console.log(posts);
     } catch (err) {
       res.status(404).json({ message: err.message });
     }
