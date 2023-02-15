@@ -36,6 +36,11 @@ export const getFeedPosts = async (req, res) => {
  
     try { 
       const posts = await Post.find();
+      //for views 
+      posts.forEach(async post => {
+        post.views++;
+        await post.save();
+      });
       res.status(200).json(posts);
       console.log(posts);
     } catch (err) {
