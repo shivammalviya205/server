@@ -59,6 +59,26 @@ export const getFeedPosts = async (req, res) => {
     }
   };
 
+  export const getFollowingPosts=async(req,res)=>{
+    try{
+      //const user=await User.findById(id);
+      const { userId } = req.params;
+      console.log(userId)
+      const followingList = await User.findOne({ _id: userId }, { following: 1 });
+      //console.log(followingList)
+      let followingIds = followingList.following.map(user =>user);
+       console.log(followingIds);
+        followingIds = followingIds.map(id => id.toString());
+      const followingPosts = await Post.find({userId:{ $in: followingIds}});
+      console.log(followingPosts);
+      res.status(200).json(followingPosts);
+     // console.log(followingPosts)
+    }catch(err)
+    {
+      res.status(404).json({msg:err.message})
+    }
+  }
+
   /* UPDATE */
 
   //data ka content type application.json hona chahiye
