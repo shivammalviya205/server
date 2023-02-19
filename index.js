@@ -72,6 +72,7 @@ app.post("/posts/create",verifyToken,upload,createPost);
 app.use("/auth",authRoutes);
 app.use('/user',userRoutes);
 app.use('/posts',postRoutes);
+
 //main server requests
 //this can be avoided
 app.get('/',(req,res)=>{

@@ -1,5 +1,6 @@
 import Post from "../models/Post.js";
 import User from "../models/User.js";
+import { mailerfun } from "../utilities/mailer.js";
 
 
 //data ka content type multipart-form-data hona chahiye
@@ -171,4 +172,19 @@ export const deletecomment=async(req,res)=>{
 };
 
 
+export const hiremail=async(req,res)=>{
+  try{
+   const {postuserid,id}=req.params;
+   const postuser=await User.findById(postuserid);
+   const user=await User.findById(id);
+    const {msg}=req.body;
+    console.log(msg);
+   const text=`This mail is sent by ${user.email} regarding an oppurtunity! ${msg}`
+    await mailerfun(postuser.email, 'Mail From Dribble', text);
+   return res.status(200).json({ status: 'success', message: 'mail sent successfully'});
 
+    
+  }catch(err){
+    return res.status(404).json({msg:err.message})
+  }
+}

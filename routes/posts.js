@@ -1,5 +1,5 @@
 import express from "express";
-import { deletecomment, getFeedPosts, getFollowingPosts, getUserPosts, likePost, postcomment } from "../controllers/posts.js";
+import { deletecomment, getFeedPosts, getFollowingPosts, getUserPosts, hiremail, likePost, postcomment } from "../controllers/posts.js";
 import { verifyToken } from "../middleware/auth.js";
 
 const router = express.Router();
@@ -13,4 +13,7 @@ router.get("/:userId/followingpost", verifyToken, getFollowingPosts);
 router.patch("/:id/like", verifyToken, likePost);
 router.post("/:id/postcomment",verifyToken,postcomment)
 router.post("/:id/deletecomment",verifyToken,deletecomment)
+
+/*hire*/ 
+router.post("/hire/:postuserid/:id",verifyToken,hiremail)
 export default router;
