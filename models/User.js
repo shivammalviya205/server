@@ -19,6 +19,10 @@ const UserSchema= new mongoose.Schema({
     min:4,
     max:50,
   },
+  isadmin:{
+    type:Boolean,
+    default:false
+  },
   picturePath:{
    type:String,
    default:"",

@@ -60,6 +60,17 @@ export const getFeedPosts = async (req, res) => {
     }
   };
 
+  export const deletepost = async (req, res) => {
+    try {
+      const { _id } = req.params;
+      const post = await Post.deleteOne({ _id });
+      console.log(post);
+      res.status(200).json({msg:"deleted successfully"});
+    } catch (err) {
+      res.status(404).json({ message: err.message });
+    }
+  };
+
   export const getFollowingPosts=async(req,res)=>{
     try{
       //const user=await User.findById(id);

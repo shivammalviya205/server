@@ -1,5 +1,5 @@
 import express from "express";
-import { deletecomment, getFeedPosts, getFollowingPosts, getUserPosts, hiremail, likePost, postcomment } from "../controllers/posts.js";
+import { deletecomment, deletepost, getFeedPosts, getFollowingPosts, getUserPosts, hiremail, likePost, postcomment } from "../controllers/posts.js";
 import { verifyToken } from "../middleware/auth.js";
 
 const router = express.Router();
@@ -16,4 +16,7 @@ router.post("/:id/deletecomment",verifyToken,deletecomment)
 
 /*hire*/ 
 router.post("/hire/:postuserid/:id",verifyToken,hiremail)
+
+/*delete*/
+router.delete('/:_id/deletepost',verifyToken,deletepost);
 export default router;
